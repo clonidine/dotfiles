@@ -7,7 +7,9 @@
 
 # i3 config file (v4)
 #
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+# Please see https://i3wm.org/docs/userguide.html for a complete rference!
+
+exec feh --randomize --bg-fill ~/Documents/Wallpapers/*
 
 set $mod Mod4
 
@@ -52,7 +54,10 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
+
+# start firefox
+bindsym $mod+z exec firefox
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
