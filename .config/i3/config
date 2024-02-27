@@ -9,6 +9,9 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete rference!
 
+# Keyboard delay
+exec xset r rate 300 50
+
 # Randomize wallpapers 
 exec feh --randomize --bg-fill ~/Documents/Wallpapers/*
 
@@ -133,6 +136,9 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+
+# open drun
+bindsym $mod+m exec rofi -show drun
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
