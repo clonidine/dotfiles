@@ -4,6 +4,7 @@
        ./git
        ./mullvad
 	./gpg
+	./zsh
    ];
     
     home.username = "mig";
@@ -29,5 +30,7 @@
 	mullvad-vpn
 	pinentry
 	gnupg
+        zsh
+        oh-my-zsh
    ];
 }

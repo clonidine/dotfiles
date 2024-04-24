@@ -157,11 +157,9 @@
    wget
   ];
 
-  programs.bash.shellAliases = {
-   rebuild = "sudo nixos-rebuild switch";
-   nixcfg = "sudo vim /etc/nixos/configuration.nix";
-   ls = "exa --icons";
-};
+  programs.zsh.enable = true;
+  environment.shells = with pkgs; [ zsh ];
+
   networking.wireguard.enable = true;
   networking.firewall.checkReversePath = "loose";
   services.mullvad-vpn.enable = true;
