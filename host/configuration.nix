@@ -158,6 +158,7 @@
   ];
 
   programs.zsh.enable = true;
+  users.users.mig.shell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];
 
   networking.wireguard.enable = true;
