@@ -48,6 +48,10 @@
   # VirtualBox 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.guest.enable = true;
+  
+  # Docker
+  virtualisation.docker.enable = true;
+  users.extraGroups.docker.members = [ "mig" ];
 
   # Enable the i3
   services.xserver.displayManager.lightdm.enable = true;
