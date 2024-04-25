@@ -9,6 +9,7 @@
 	"editor.cursorStyle" = "block";
 	"editor.fontLigatures" = true;
 	"workbench.colorTheme" = "Catppuccin Mocha";
+	"workbench.iconTheme" = "eq-material-theme-icons-darker";
      };
      extensions = with pkgs.vscode-extensions; [
        rust-lang.rust-analyzer
