@@ -1,4 +1,4 @@
-{ pkgs, linuxKernel, ...}: {
+{ pkgs, ...}: {
     imports = [
        ./alacritty
        ./git
@@ -6,6 +6,7 @@
 	./gpg
 	./zsh
 	./firefox
+        ./vscodium
    ];
     
     home.username = "mig";
@@ -13,16 +14,16 @@
     home.stateVersion = "23.11";
     programs.home-manager.enable = true;
     home.packages = with pkgs; [
+	vscodium
 	tor-browser
 	keepassxc
       	neofetch
-      	vscodium
+	rustup
       	i3
       	git
 	alacritty
 	rofi
 	flameshot
-	rustup
 	gccgo13
         bat
 	eza
