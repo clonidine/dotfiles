@@ -8,6 +8,9 @@
        ms-azuretools.vscode-docker
        usernamehw.errorlens
        vscodevim.vim
+       catppuccin.catppuccin-vsc
+       catppuccin.catppuccin-vsc-icons
+       equinusocio.vsc-material-theme-icons
     ];
   };
 }
