@@ -1,4 +1,4 @@
-{ pkgs, ...}: {
+{ pkgs, linuxKernel, ...}: {
     imports = [
        ./alacritty
        ./git

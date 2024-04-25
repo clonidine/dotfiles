@@ -44,6 +44,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+   
+  # VirtualBox 
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
   # Enable the i3
   services.xserver.displayManager.lightdm.enable = true;
