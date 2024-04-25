@@ -5,6 +5,7 @@
        ./mullvad
 	./gpg
 	./zsh
+	./firefox
    ];
     
     home.username = "mig";
@@ -12,10 +13,8 @@
     home.stateVersion = "23.11";
     programs.home-manager.enable = true;
     home.packages = with pkgs; [
-	firefox
 	tor-browser
 	keepassxc
-	firefox
       	neofetch
       	vscodium
       	i3
