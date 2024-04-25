@@ -57,8 +57,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "br";
-    xkbVariant = "";
+    xkb.layout = "br";
+    xkb.variant = "";
   };
 
   # Changing to pink audio port
