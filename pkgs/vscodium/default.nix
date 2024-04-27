@@ -14,7 +14,7 @@
      enable = true;
      package = pkgs.vscodium;
      userSettings = {
-	"files.autoSave" = "onFocusChange";
+	"files.autoSave" = "afterDelay";
 	"editor.fontSize" = 16;
         "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
 	"editor.cursorStyle" = "block";
