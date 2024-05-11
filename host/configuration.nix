@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -43,11 +44,11 @@
   };
 
   # Enable the X11 windowing system.
-   
+
   # VirtualBox 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.guest.enable = true;
-  
+
   # Docker
   virtualisation.docker.enable = true;
   users.extraGroups.docker.members = [ "mig" ];
@@ -55,21 +56,21 @@
   # Enable the i3
   services = {
     displayManager.defaultSession = "none+i3";
-   
-    xserver = {
-       enable = true;	
-       displayManager.lightdm.enable = true;
-       windowManager.i3.enable = true;
-    };
- };
-#  services.xserver.displayManager.lightdm.enable = true;
-#  services.xserver.windowManager.i3.enable = true;
-#  services.xserver = {
-#     displayManager.lightdm.enable = true;
-#     windowManager.i3.enable = true;
-#     displayManager.defaultSession = "none+i3";
 
-#  };
+    xserver = {
+      enable = true;
+      displayManager.lightdm.enable = true;
+      windowManager.i3.enable = true;
+    };
+  };
+  #  services.xserver.displayManager.lightdm.enable = true;
+  #  services.xserver.windowManager.i3.enable = true;
+  #  services.xserver = {
+  #     displayManager.lightdm.enable = true;
+  #     windowManager.i3.enable = true;
+  #     displayManager.defaultSession = "none+i3";
+
+  #  };
 
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
 
@@ -80,10 +81,10 @@
   };
 
   # Changing to pink audio port
-  hardware.firmware = [ ( pkgs.writeTextDir "/lib/firmware/hda-jack-retask.fw" ( builtins.readFile ./hda-jack-retask.fw ) ) ];
+  hardware.firmware = [ (pkgs.writeTextDir "/lib/firmware/hda-jack-retask.fw" (builtins.readFile ./hda-jack-retask.fw)) ];
   boot.extraModprobeConfig = ''
-  options snd-hda-intel patch=hda-jack-retask.fw
-'';
+    options snd-hda-intel patch=hda-jack-retask.fw
+  '';
 
   # Configure console keymap
   console.keyMap = "br-abnt2";
@@ -92,7 +93,7 @@
   services.printing.enable = true;
 
   # Optimise store
-  nix.settings.auto-optimise-store = true; 
+  nix.settings.auto-optimise-store = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -111,10 +112,10 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-   # Fonts
-   fonts.packages = with pkgs; [
-            (nerdfonts.override {fonts = ["JetBrainsMono"];})
-      	];
+  # Fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mig = {
@@ -126,7 +127,7 @@
   };
 
   # Configure Nvidia
-  
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -135,7 +136,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
 
@@ -162,7 +163,7 @@
     open = false;
 
     # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
@@ -175,8 +176,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   wget
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget
   ];
 
   programs.zsh.enable = true;
@@ -187,13 +188,13 @@
   networking.firewall.checkReversePath = "loose";
   services.mullvad-vpn.enable = true;
 
-   # Env variables
+  # Env variables
   environment.sessionVariables = rec {
-	GPG_TTY      = "$(tty)";
- };
+    GPG_TTY = "$(tty)";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
-	  # started in user sessions.
+  # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
