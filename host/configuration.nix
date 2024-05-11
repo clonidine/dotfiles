@@ -43,7 +43,6 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
    
   # VirtualBox 
   virtualisation.virtualbox.host.enable = true;
@@ -54,8 +53,23 @@
   users.extraGroups.docker.members = [ "mig" ];
 
   # Enable the i3
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  services = {
+    displayManager.defaultSession = "none+i3";
+   
+    xserver = {
+       enable = true;	
+       displayManager.lightdm.enable = true;
+       windowManager.i3.enable = true;
+    };
+ };
+#  services.xserver.displayManager.lightdm.enable = true;
+#  services.xserver.windowManager.i3.enable = true;
+#  services.xserver = {
+#     displayManager.lightdm.enable = true;
+#     windowManager.i3.enable = true;
+#     displayManager.defaultSession = "none+i3";
+
+#  };
 
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
 

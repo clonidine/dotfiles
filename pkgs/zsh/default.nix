@@ -2,6 +2,7 @@
    programs.zsh = {
     enable = true;
     enableCompletion = true;
+    prezto.caseSensitive = false;
     autosuggestion.enable = true;
     shellAliases = {
        hrebuild = "home-manager switch --flake";
