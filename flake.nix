@@ -14,7 +14,7 @@
 	   lib = nixpkgs.lib;
 	   arch = "x86_64-linux";
         in {
-	nixosConfigurations.nix = lib.nixosSystem {
+	nixosConfigurations.nixos = lib.nixosSystem {
 	      system = arch;
               modules = [./host/configuration.nix];
         };

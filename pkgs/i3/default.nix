@@ -18,7 +18,7 @@ in
      modifier = mod;
      defaultWorkspace = "workspace number 1";
      startup = [
-	{ command = "exec mullvad connect"; always = false; notification = true; }
+	{ command = "exec mullvad connect"; always = true; notification = true; }
         
         { command = "mkdir -p ~/Documents"; always = false; notification = false; }
 	{ command = "mkdir -p ~/Documents/KeePassXC"; always = false; notification = false; }

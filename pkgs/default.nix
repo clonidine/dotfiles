@@ -10,6 +10,7 @@
 	./i3
 	./rofi
 	./syncthing
+	./rust
    ];
     
     home.username = "mig";
@@ -21,7 +22,6 @@
 	tor-browser
 	keepassxc
       	neofetch
-	rustup
       	git
 	alacritty
 	flameshot
