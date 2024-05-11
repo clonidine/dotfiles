@@ -18,7 +18,7 @@ in
       modifier = mod;
       defaultWorkspace = "workspace number 1";
       startup = [
-        { command = "exec xset r rate 220 35"; always = true; notification = false; }
+        { command = "exec feh --bg-fill --randomize ~/dotfiles/backgrounds/*"; always = true; notification = false; }
         { command = "exec mullvad connect"; always = true; notification = true; }
 
         { command = "mkdir -p ~/Documents"; always = false; notification = false; }

@@ -19,18 +19,16 @@
   home.stateVersion = "23.11";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
+    feh
     tor-browser
     keepassxc
     fastfetch
-    git
     flameshot
     gccgo13
     bat
     eza
     pinentry
     gnupg
-    zsh
-    oh-my-zsh
     lunar-client
     nixpkgs-fmt
   ];
