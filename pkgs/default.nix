@@ -21,7 +21,7 @@
     home.packages = with pkgs; [
 	tor-browser
 	keepassxc
-      	neofetch
+	fastfetch
       	git
 	alacritty
 	flameshot
