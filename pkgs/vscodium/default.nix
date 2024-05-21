@@ -21,10 +21,9 @@
       "files.autoSave" = "afterDelay";
       "editor.fontSize" = 16;
       "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
-      "editor.cursorStyle" = "block";
+      "editor.cursorStyle" = "line";
       "editor.fontLigatures" = true;
       "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.iconTheme" = "eq-material-theme-icons-darker";
       "files.associations" = {
         "*.yaml" = "dockercompose";
       };
@@ -38,6 +37,7 @@
       catppuccin.catppuccin-vsc
       catppuccin.catppuccin-vsc-icons
       equinusocio.vsc-material-theme-icons
+      serayuzgur.crates
     ];
   };
 }

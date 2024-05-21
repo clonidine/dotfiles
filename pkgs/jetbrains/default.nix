@@ -2,9 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    rustc
-    rustfmt
-    rust-analyzer
-    cargo
+    jetbrains.idea-community
+    android-studio
   ];
 }

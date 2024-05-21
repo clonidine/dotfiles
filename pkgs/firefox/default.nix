@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   lock-false = {
     Value = false;
@@ -19,7 +19,7 @@ in
         Value = true;
         Locked = true;
         Cryptomining = true;
-        Fingerprinting = true;
+        #  Fingerprinting = true;
       };
       DisablePocket = true;
       DisableFirefoxAccounts = true;
@@ -51,7 +51,8 @@ in
         "browser.newtabpage.activity-stream.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-        "privacy.resistFingerprinting" = true;
+        #        "privacy.resistFingerprinting" = true;
+        #        "privacy.resistFingerprinting.letterboxing" = true;
       };
 
       ExtensionSettings = with builtins;
@@ -67,7 +68,6 @@ in
         listToAttrs [
           (extension "ublock-origin" "uBlock0@raymondhill.net")
           (extension "keepassxc-browser" "keepassxc-browser@keepassxc.org")
-          (extension "noscript" "{73a6fe31-595d-460b-a920-fcc0f8843232}")
         ];
       # To add additional extensions, find it on addons.mozilla.org, find
       # the short ID in the url (like https://addons.mozilla.org/en-US/firefox/addon/!SHORT_ID!/)

@@ -11,6 +11,8 @@
     ./rofi
     ./syncthing
     ./rust
+    ./jdk
+    ./jetbrains
   ];
 
   home.username = "mig";
@@ -31,5 +33,15 @@
     gnupg
     lunar-client
     nixpkgs-fmt
+    lunarvim
+    zig_0_10
+    zls
+    file
+    chromium
+    wireshark
+    openssl
+    pkg-config
+    dropbox
+    vivaldi
   ];
 }

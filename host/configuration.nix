@@ -28,6 +28,9 @@
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
 
+  # Swap
+  boot.kernel.sysctl = { "vm.swappiness" = 10; };
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -52,6 +55,7 @@
   # Docker
   virtualisation.docker.enable = true;
   users.extraGroups.docker.members = [ "mig" ];
+  users.extraGroups.wireshark.members = [ "mig" ];
 
   # Enable the i3
   services = {
@@ -115,15 +119,14 @@
   # Fonts
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    fira-code
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mig = {
     isNormalUser = true;
     description = "mig";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "wireshark" ];
   };
 
   # Configure Nvidia
@@ -189,7 +192,7 @@
   services.mullvad-vpn.enable = true;
 
   # Env variables
-  environment.sessionVariables = rec {
+  environment.sessionVariables = {
     GPG_TTY = "$(tty)";
   };
 
@@ -207,7 +210,8 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  #  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 5037 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
