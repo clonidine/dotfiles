@@ -6,9 +6,7 @@
     ./gpg
     ./zsh
     ./firefox
-    ./vscodium
-    ./i3
-    ./rofi
+    ./vscodium ./i3 ./rofi
     ./syncthing
     ./rust
     ./jdk
@@ -29,19 +27,13 @@
     gccgo13
     bat
     eza
-    pinentry
-    gnupg
     lunar-client
     nixpkgs-fmt
     lunarvim
-    zig_0_10
     zls
     file
-    chromium
-    wireshark
     openssl
     pkg-config
-    dropbox
-    vivaldi
+    hugo
   ];
 }

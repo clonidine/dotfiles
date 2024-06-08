@@ -13,13 +13,14 @@ in
         "${mod}+t" = "exec tor-browser";
         "${mod}+Shift+c" = "exec mullvad connect";
         "${mod}+Shift+d" = "exec mullvad disconnect";
+        "${mod}+Shift+l" = "exec feh --bg-fill --randomize ~/dotfiles/backgrounds/*";
       };
       terminal = "alacritty";
       modifier = mod;
       defaultWorkspace = "workspace number 1";
       startup = [
         { command = "exec xset r rate 200 30"; always = true; notification = false; }
-        { command = "exec feh --bg-fill --randomize ~/dotfiles/backgrounds/*"; always = true; notification = false; }
+        { command = "exec feh --bg-fill ~/dotfiles/backgrounds/*"; always = true; notification = false; }
         { command = "exec mullvad connect"; always = true; notification = true; }
       ];
     };
