@@ -6,7 +6,9 @@
     ./gpg
     ./zsh
     ./firefox
-    ./vscodium ./i3 ./rofi
+    ./vscodium 
+    ./i3 
+    ./rofi
     ./syncthing
     ./rust
     ./jdk
@@ -34,6 +36,9 @@
     file
     openssl
     pkg-config
-    hugo
+    unzip
+    clang-tools
+    gnumake
+    premid
   ];
 }
