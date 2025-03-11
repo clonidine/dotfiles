@@ -1,0 +1,7 @@
+[general]
+import = [
+    "~/dotfiles/home/alacritty/themes/catppuccin_mocha.toml"
+]
+
+[font]
+size = 14.0
