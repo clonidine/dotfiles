@@ -4,4 +4,5 @@ import = [
 ]
 
 [font]
+normal = { family = "Fira Code", style = "Regular" }
 size = 14.0
