@@ -2,12 +2,19 @@
 
 let
   myAliases = {
+    # Git
+    g = "git";
+    ga = "git add";
+    gs = "git status";
+    gl = "git log";
+    gd = "git diff";
+    gc = "git commit";
+    gp = "git push";
+
+    # Others
+    ls = "eza";
     cat = "bat";
     hrbd = "home-manager switch --flake .#mika";
-
-    ga = "git add";
-    gc = "git commit";
-    gs = "git status";
   };
 in {
 
