@@ -8,11 +8,6 @@
       "wheel"
       "networkmanager"
     ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      mullvad-browser
-      fastfetch
-      telegram-desktop
-    ];
   };
 
   environment.shells = with pkgs; [ zsh ];

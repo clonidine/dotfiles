@@ -45,6 +45,8 @@ in
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    mullvad-browser
+    telegram-desktop
     htop
     wl-clipboard
     grim
