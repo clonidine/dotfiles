@@ -24,14 +24,14 @@
         mika = lib.nixosSystem {
           inherit system;
           modules = [
-            ./modules/configuration.nix
+            ./nixos/configuration.nix
           ];
         };
       };
       homeConfigurations = {
         mika = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./modules/home.nix ];
+          modules = [ ./home.nix ];
         };
       };
     };

@@ -7,7 +7,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ../system/hardware-configuration.nix
+    ./hardware-configuration.nix
   ];
 
   # Use the GRUB boot loader.
@@ -61,8 +61,8 @@
 
   programs.zsh.enable = true; 
 
-  # # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
+  # Enable the GNOME Desktop Environment.
+  services.xserver.desktopManager.gnome.enable = false;
 
   # Hyprland
   programs.hyprland.enable = true;

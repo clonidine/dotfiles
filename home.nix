@@ -62,16 +62,16 @@ in
   };
 
   imports = [
-    ../home/mpv/mpv.nix
-    ../home/flameshot.nix
-    ../home/alacritty/alacritty.nix
-    ../home/git.nix
-    ../home/rofi/rofi.nix
-    ../home/waybar/waybar.nix
-    ../home/vencord/vencord.nix
+    ./modules/home/mpv.nix
+    ./modules/home/flameshot.nix
+    ./modules/home/alacritty.nix
+    ./modules/home/git.nix
+    ./modules/home/vencord.nix
 
-    ../system/dm/gnome.nix
-    ../system/wm/hypr/hyprland.nix
+    ./modules/desktop/gnome.nix
+    ./modules/desktop/hyprland.nix
+    ./modules/desktop/rofi/rofi.nix
+    ./modules/desktop/waybar/waybar.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

@@ -9,7 +9,7 @@
     });
   };
 
-  home.file.".config/mpv/mpv.conf".source = ./mpv.conf;
+  home.file.".config/mpv/mpv.conf".source = ../../dotfiles/mpv/mpv.conf;
 
   home.packages = with pkgs; [ yt-dlp ];
 }

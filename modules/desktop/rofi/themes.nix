@@ -10,6 +10,6 @@ let
 in {
   home.file = builtins.listToAttrs (map (fileName: {
     name = ".config/rofi/themes/${fileName}";
-    value = { source = ./themes/${fileName}; };
+    value = { source = ../../../dotfiles/rofi/themes/${fileName}; };
   }) themes);
 }
