@@ -56,9 +56,16 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  # Enable the ly as the Display Manager
+  services.displayManager.ly.enable = true;
+
+  programs.zsh.enable = true; 
+
+  # # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Hyprland
+  programs.hyprland.enable = true;
 
   # Enable the Mullvad VPN
   services.mullvad-vpn = {
@@ -99,7 +106,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ vim wget curl ];
+  environment.systemPackages = with pkgs; [ vim wget curl nixfmt-rfc-style ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -1,6 +1,6 @@
 [general]
 import = [
-    "~/dotfiles/home/alacritty/themes/catppuccin_mocha.toml"
+    "themes/github_dark.toml"
 ]
 
 [font]

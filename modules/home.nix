@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   myAliases = {
@@ -16,7 +21,8 @@ let
     cat = "bat";
     hrbd = "home-manager switch --flake .#mika";
   };
-in {
+in
+{
 
   nixpkgs.config.allowBroken = true;
 
@@ -39,25 +45,33 @@ in {
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    htop
+    wl-clipboard
+    grim
+    slurp
+    vscodium
+    alsa-utils
     fira-code
     keepassxc
     bat
     eza
-    (discord.override {
-      withOpenASAR = true;
-      # withVencord = true; # can do this here too
-    })
   ];
 
-  home.sessionVariables = { EDITOR = "vim"; };
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   imports = [
     ../home/mpv/mpv.nix
     ../home/flameshot.nix
     ../home/alacritty/alacritty.nix
     ../home/git.nix
+    ../home/rofi/rofi.nix
+    ../home/waybar/waybar.nix
+    ../home/vencord/vencord.nix
 
     ../system/dm/gnome.nix
+    ../system/wm/hypr/hyprland.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
