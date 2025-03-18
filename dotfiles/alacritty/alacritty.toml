@@ -1,6 +1,6 @@
 [general]
 import = [
-    "themes/github_dark.toml"
+    "themes/catppuccin_mocha.toml"
 ]
 
 [font]
