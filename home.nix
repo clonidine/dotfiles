@@ -70,6 +70,7 @@ in
     ./modules/home/git.nix
     ./modules/home/vencord.nix
     ./modules/home/bat.nix
+    ./modules/home/spicetify.nix
 
     ./modules/desktop/gnome.nix
     ./modules/desktop/hyprland.nix
