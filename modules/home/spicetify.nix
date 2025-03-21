@@ -11,13 +11,10 @@ in
 
     enabledExtensions = with spicePkgs.extensions; [
       hidePodcasts
-      shuffle
       adblock
       playlistIcons
       historyShortcut
       fullAlbumDate
-      groupSession
-      powerBar
     ];
 
     theme = spicePkgs.themes.catppuccin;

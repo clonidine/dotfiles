@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  configPath = ".config/Vencord";
+  configFolder = "Vencord";
 in
 {
   home.packages = [
@@ -10,11 +10,12 @@ in
     })
   ];
 
-  home.file."${configPath}/themes/catppuccin-mocha.theme.css".source =
+  xdg.configFile."${configFolder}/themes/catppuccin-mocha.theme.css".source =
     ../../dotfiles/Vencord/themes/catppuccin-mocha.theme.css;
 
-  home.file."${configPath}/settings/quickCss.css".source =
+  xdg.configFile."${configFolder}/settings/quickCss.css".source =
     ../../dotfiles/Vencord/settings/quickCss.css;
-  home.file."${configPath}/settings/settings.json".source =
+  
+  xdg.configFile."${configFolder}/settings/settings.json".source =
     ../../dotfiles/Vencord/settings/settings.json;
 }

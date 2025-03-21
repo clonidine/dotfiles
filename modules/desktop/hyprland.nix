@@ -1,36 +1,32 @@
 { pkgs, ... }:
 
 let
-  hyprConfigPath = ".config/hypr";
-  hyprConfigFiles = [
-    "hyprland.conf"
-    "keybinding.conf"
-    "monitor.conf"
-    "window.conf"
-    "workspace.conf"
-    "volume_control.conf"
-    "hyprpaper.conf"
-    "scripts/volume_control.sh"
-  ];
 in
 {
   programs.kitty.enable = true; # required for the default Hyprland config
 
-  home.packages = [
-    pkgs.waybar
-    pkgs.hyprpaper
+  home.packages = with pkgs; [
+    hyprpaper
+    hyprlock
+    hyprshot
   ];
 
-  # wayland.windowManager.hyprland.enable = true; # enable Hyprland
-
-  # Optional, hint Electron apps to use Wayland:
-  # home.sessionVariables.NIXOS_OZONE_WL = "1";
-  home.file = builtins.listToAttrs (
-    map (fileName: {
-      name = "${hyprConfigPath}/${fileName}";
-      value = {
-        source = ../../dotfiles/hypr/${fileName};
-      };
-    }) hyprConfigFiles
-  );
+  xdg.configFile = {
+    "hypr/hyprland.conf".source = ../../dotfiles/hypr/hyprland.conf;
+    "hypr/keybinding.conf".source = ../../dotfiles/hypr/keybinding.conf;
+    "hypr/monitor.conf".source = ../../dotfiles/hypr/monitor.conf;
+    "hypr/window.conf".source = ../../dotfiles/hypr/window.conf;
+    "hypr/workspace.conf".source = ../../dotfiles/hypr/workspace.conf;
+    "hypr/volume_control.conf".source = ../../dotfiles/hypr/volume_control.conf;
+    "hypr/hyprpaper.conf".source = ../../dotfiles/hypr/hyprpaper.conf;
+    "hypr/hyprlock.conf".source = ../../dotfiles/hypr/hyprlock.conf;
+    "hypr/scripts/wall_randomizer" = {
+      source = ../../dotfiles/hypr/scripts/wall_randomizer;
+      executable = true;
+    };
+    "hypr/scripts/reload_waybar" = {
+      source = ../../dotfiles/hypr/scripts/reload_waybar;
+      executable = true;
+    };
+  };
 }

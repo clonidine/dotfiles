@@ -53,7 +53,9 @@ in
     slurp
     vscodium
     alsa-utils
-    fira-code
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.iosevka
     keepassxc
     bat
     eza
@@ -65,7 +67,7 @@ in
 
   imports = [
     ./modules/home/mpv.nix
-    ./modules/home/flameshot.nix
+    #    ./modules/home/flameshot.nix
     ./modules/home/alacritty.nix
     ./modules/home/git.nix
     ./modules/home/vencord.nix
@@ -75,7 +77,8 @@ in
     ./modules/desktop/gnome.nix
     ./modules/desktop/hyprland.nix
     ./modules/desktop/rofi/rofi.nix
-    ./modules/desktop/waybar/waybar.nix
+    ./modules/desktop/waybar.nix
+    ./modules/desktop/wlogout.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
