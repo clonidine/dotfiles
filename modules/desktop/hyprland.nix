@@ -9,13 +9,18 @@ let
     "window.conf"
     "workspace.conf"
     "volume_control.conf"
+    "hyprpaper.conf"
     "scripts/volume_control.sh"
   ];
 in
 {
   programs.kitty.enable = true; # required for the default Hyprland config
 
-  home.packages = [ pkgs.waybar ];
+  home.packages = [
+    pkgs.waybar
+    pkgs.hyprpaper
+  ];
+
   # wayland.windowManager.hyprland.enable = true; # enable Hyprland
 
   # Optional, hint Electron apps to use Wayland:
