@@ -23,6 +23,7 @@
     "hypr/hyprpaper.conf".source = ../../dotfiles/hypr/hyprpaper.conf;
     "hypr/hyprlock.conf".source = ../../dotfiles/hypr/hyprlock.conf;
     "hypr/colors.conf".source = ../../dotfiles/hypr/colors.conf;
+    "hypr/hyprlock/hyprlock.png".source = ../../dotfiles/hypr/hyprlock/hyprlock.png;
     "hypr/scripts/wall_randomizer" = {
       source = ../../dotfiles/hypr/scripts/wall_randomizer;
       executable = true;
