@@ -22,13 +22,9 @@
     mullvad-browser
     telegram-desktop
     htop
-    wl-clipboard
-    grim
-    slurp
     alsa-utils
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
-    nerd-fonts.iosevka
     keepassxc
     bat
     eza
