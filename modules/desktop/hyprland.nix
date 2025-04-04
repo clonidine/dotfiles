@@ -4,9 +4,13 @@
   programs.kitty.enable = true; # required for the default Hyprland config
 
   home.packages = with pkgs; [
+    # Misc
     hyprpaper
     hyprlock
     hyprshot
+
+    # Plugins
+    hyprlandPlugins.hyprbars
   ];
 
   xdg.configFile = {
@@ -18,6 +22,7 @@
     "hypr/volume_control.conf".source = ../../dotfiles/hypr/volume_control.conf;
     "hypr/hyprpaper.conf".source = ../../dotfiles/hypr/hyprpaper.conf;
     "hypr/hyprlock.conf".source = ../../dotfiles/hypr/hyprlock.conf;
+    "hypr/colors.conf".source = ../../dotfiles/hypr/colors.conf;
     "hypr/scripts/wall_randomizer" = {
       source = ../../dotfiles/hypr/scripts/wall_randomizer;
       executable = true;
