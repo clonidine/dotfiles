@@ -16,6 +16,7 @@ let
     cat = "bat";
     hrbd = "home-manager switch --flake .#mika";
     rbd = "sudo nixos-rebuild switch --flake .#mika";
+    ff = "fastfetch";
   };
 in
 {
