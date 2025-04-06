@@ -10,6 +10,7 @@
     ./modules/home/spicetify.nix
     ./modules/home/zsh.nix
     ./modules/home/vscode.nix
+    ./modules/home/firefox.nix
 
     ./modules/desktop/gnome.nix
     ./modules/desktop/hyprland.nix
