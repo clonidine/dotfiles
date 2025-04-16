@@ -23,6 +23,8 @@
 
   programs.virt-manager.enable = true;
 
+  programs.zsh.interactiveShellInit = ''eval "$(direnv hook zsh)"'';
+
   # Internationalization
   i18n.defaultLocale = "en_US.UTF-8";
 
