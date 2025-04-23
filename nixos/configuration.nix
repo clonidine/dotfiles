@@ -30,6 +30,9 @@
 
   programs.zsh.enable = true;
 
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
   # Hyprland
   programs.hyprland.enable = true;
 

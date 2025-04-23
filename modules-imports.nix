@@ -12,6 +12,7 @@
     ./modules/home/vscode.nix
     ./modules/home/firefox.nix
     ./modules/home/direnv.nix
+    ./modules/home/nvim.nix
 
     ./modules/desktop/gnome.nix
     ./modules/desktop/hyprland.nix

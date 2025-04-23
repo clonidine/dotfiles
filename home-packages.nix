@@ -5,7 +5,7 @@
   programs.direnv.nix-direnv.enable = true;
   
   home.packages = with pkgs; [
-    blueman
+    bluez
     cargo-generate
     signal-desktop-bin
     obsidian
