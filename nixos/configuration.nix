@@ -25,6 +25,11 @@
 
   programs.zsh.interactiveShellInit = ''eval "$(direnv hook zsh)"'';
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
   # Internationalization
   i18n.defaultLocale = "en_US.UTF-8";
 

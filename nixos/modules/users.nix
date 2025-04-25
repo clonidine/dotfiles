@@ -7,7 +7,8 @@
     extraGroups = [
       "wheel"
       "networkmanager"
-    ]; # Enable ‘sudo’ for the user.
+      "wireshark"
+    ];
   };
 
   environment.shells = with pkgs; [ zsh ];

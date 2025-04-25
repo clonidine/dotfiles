@@ -7,8 +7,10 @@
   home.packages = with pkgs; [
     bluez
     cargo-generate
+    cargo-expand
     signal-desktop-bin
     obsidian
+    obs-studio
     p7zip
     mullvad-browser
     telegram-desktop

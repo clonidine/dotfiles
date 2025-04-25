@@ -1,3 +1,8 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.opt.termguicolors = true
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -24,7 +29,7 @@ require("catppuccin").setup({
 })
 
 -- Apply the theme
-vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme tokyonight-night")
 
 -- Set up nvim-cmp
 local cmp = require'cmp'
@@ -48,6 +53,16 @@ cmp.setup({
   }
 })
 
+-- Set up NvimTree
+require("nvim-tree").setup()
+vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeOpen<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-e>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-q>', ':NvimTreeClose<CR>', { noremap = true, silent = true })
+
+-- Telescope
+vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope find_files<CR>', { noremap = true, silent = true })
+
 -- Set up LSP for Rust
 local lspconfig = require'lspconfig'
 lspconfig.rust_analyzer.setup({
@@ -56,3 +71,17 @@ lspconfig.rust_analyzer.setup({
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   end,
 })
+
+-- Automatically format Rust files on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.rs",
+    callback = function()
+        -- Save the buffer before formatting
+        vim.cmd("silent! write")
+        -- Run rustfmt
+        vim.cmd("silent! !rustfmt %")
+        -- Reload the file to see the changes
+        vim.cmd("edit")
+    end,
+})
+
