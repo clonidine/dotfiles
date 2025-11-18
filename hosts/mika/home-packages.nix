@@ -22,5 +22,6 @@
     bat
     eza
     ripgrep
+    freetube
   ];
 }
