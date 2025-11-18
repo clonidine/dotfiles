@@ -11,6 +11,9 @@ configuration {
     display-drun: " 🏃  Run ";
     display-window: " 🪟  Window";
     sidebar-mode: true;
+    element-text {
+        text-color: #f9e2af; 
+    }
 } 
 
 @theme "catppuccin-mocha"

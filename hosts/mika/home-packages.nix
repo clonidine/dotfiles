@@ -21,5 +21,6 @@
     keepassxc
     bat
     eza
+    ripgrep
   ];
 }

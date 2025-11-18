@@ -3,11 +3,10 @@
 {
   programs.git = {
     enable = true;
-    userName = "clonidine";
-    userEmail = "lcly@duck.com";
-
-    extraConfig = {
-      init.defaultBranch = "main";
+    settings = {
+    	user.name = "clonidine";
+    	user.email = "lcly@duck.com";
+        init.defaultBranch = "main";
     };
   };
 }
