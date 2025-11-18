@@ -1,13 +1,15 @@
 { pkgs, ... }:
 
 {
-  #  Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mika = {
     isNormalUser = true;
+    hashedPassword = "$y$j9T$F2A4KFI4TvQ6luMk6Gayo/$BcdQa7Es8B75rdxwv3bpq0Uj1jtyer0evMJKc2HVIdB";
     extraGroups = [
       "wheel"
       "networkmanager"
       "wireshark"
+      "libvirtd"
+      "kvm"
     ];
   };
 

@@ -11,5 +11,9 @@
     wget
     curl
     nixfmt-rfc-style
+    qemu
+    spice-gtk
+    freerdp   # xfreerdp + wlfreerdp
+    remmina   # optional GUI client
   ];
 }

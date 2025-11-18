@@ -1,6 +1,17 @@
 { pkgs, ... }:
 
 {
+  services.openssh.enable = true;
+
+  services.blueman.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -14,5 +25,5 @@
   };
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = false;
+  services.desktopManager.gnome.enable = false;
 }

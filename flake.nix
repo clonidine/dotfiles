@@ -1,12 +1,18 @@
 {
-  description = "Mika's flakes";
+  description = "Mika's flake";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -18,25 +24,81 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      nixosConfigurations = {
-        mika = lib.nixosSystem {
+      # ------------------------------
+      #  Supported systems
+      # ------------------------------
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+
+      forAllSystems =
+        f:
+        builtins.listToAttrs (
+          map (system: {
+            name = system;
+            value = f system;
+          }) systems
+        );
+
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
+      mkNixos =
+        host: system:
+        nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            ./nixos/configuration.nix
+            ./hosts/${host}/configuration.nix
           ];
+          specialArgs = {
+            inherit spicetify-nix inputs;
+          };
         };
+
+      mkHome =
+        host: system:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = mkPkgs system;
+          modules = [
+            ./hosts/${host}/home.nix
+          ];
+          extraSpecialArgs = {
+            inherit spicetify-nix;
+          };
+        };
+
+    in
+    {
+      # ------------------------------
+      #  NixOS HOSTS
+      # ------------------------------
+      nixosConfigurations = {
+        mika = mkNixos "mika" "x86_64-linux";
+        # desktop1 = mkNixos "desktop1" "x86_64-linux";
+        # rpi = mkNixos "rpi" "aarch64-linux";
       };
+
+      # ------------------------------
+      #  Home Manager configs
+      # ------------------------------
       homeConfigurations = {
-        mika = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit spicetify-nix; };
-          modules = [ ./home.nix ];
-        };
+        mika = mkHome "mika" "x86_64-linux";
+        # work-laptop = mkHome "work-laptop" "x86_64-linux";
       };
+
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = mkPkgs system;
+        in
+        {
+          default = pkgs.hello;
+        }
+      );
     };
 }
