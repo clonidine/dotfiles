@@ -16,7 +16,7 @@
   services.xserver.enable = true;
 
   # Enable the ly as the Display Manager
-  services.displayManager.ly.enable = true;
+#  services.displayManager.ly.enable = true;
 
   # Enable the Mullvad VPN
   services.mullvad-vpn = {
@@ -25,5 +25,16 @@
   };
 
   # Enable the GNOME Desktop Environment.
-  services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.gnome.core-apps.enable = false;
+  services.gnome.core-developer-tools.enable = false;
+  services.gnome.games.enable = false;
+  services.gvfs.enable = true;
+
+  services.dbus.packages = with pkgs; [
+    kdePackages.kwallet
+  ];
+
+  services.desktopManager.plasma6.enable = false;
 }

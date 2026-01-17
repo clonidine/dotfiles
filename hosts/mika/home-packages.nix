@@ -5,10 +5,11 @@
   programs.direnv.nix-direnv.enable = true;
   
   home.packages = with pkgs; [
+    mpvpaper
+    variety
     bluez
     cargo-generate
     cargo-expand
-    signal-desktop-bin
     obsidian
     obs-studio
     p7zip
@@ -23,5 +24,6 @@
     eza
     ripgrep
     freetube
+    kdePackages.kwallet
   ];
 }
