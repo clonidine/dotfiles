@@ -4,12 +4,11 @@
   programs.mpv = {
     enable = true;
     package = (
-      pkgs.mpv-unwrapped.wrapper {
-        scripts = with pkgs.mpvScripts; [
+      pkgs.mpv.override {
+	scripts = with pkgs.mpvScripts; [
           uosc
           sponsorblock
         ];
-        mpv = pkgs.mpv-unwrapped.override { waylandSupport = true; };
       }
     );
   };
