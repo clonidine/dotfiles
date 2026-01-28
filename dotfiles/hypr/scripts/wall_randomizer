@@ -1,10 +1,28 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-WALLPAPER_DIR="$HOME/dotfiles/wallpapers/"
-CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+WALLPAPER_DIR="$HOME/dotfiles/wallpapers"
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/hyprpaper_last_wall"
 
-# Get a random wallpaper that is not the current one
-WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
+# Ensure hyprpaper is running
+pgrep -x hyprpaper >/dev/null || hyprpaper & disown
+
+# Read last used wallpaper (if any)
+LAST=""
+[[ -f "$CACHE_FILE" ]] && LAST="$(<"$CACHE_FILE")"
+
+# Pick a random wallpaper different from the last one (if possible)
+WALLPAPER="$(
+  find "$WALLPAPER_DIR" -type f ! -path "$LAST" | shuf -n 1
+)"
+
+# Fallback if there's only one file
+if [[ -z "${WALLPAPER:-}" ]]; then
+  WALLPAPER="$(find "$WALLPAPER_DIR" -type f | shuf -n 1)"
+fi
 
 # Apply the selected wallpaper
-hyprctl hyprpaper reload ,"$WALLPAPER"
+hyprctl hyprpaper wallpaper ",$WALLPAPER"
+
+# Save current wallpaper path for the next run
+printf '%s' "$WALLPAPER" > "$CACHE_FILE"
