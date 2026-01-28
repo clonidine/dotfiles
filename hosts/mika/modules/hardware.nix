@@ -6,6 +6,8 @@
   # NVIDIA setup
   services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
 
+  hardware.cpu.amd.updateMicrocode = true;
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
