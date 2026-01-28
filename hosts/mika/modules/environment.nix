@@ -22,7 +22,7 @@ in
     vim
     wget
     curl
-    nixfmt-rfc-style
+    nixfmt
     qemu
     spice-gtk
     freerdp   # xfreerdp + wlfreerdp
