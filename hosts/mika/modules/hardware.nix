@@ -8,6 +8,8 @@
 
   hardware.cpu.amd.updateMicrocode = true;
 
+  hardware.uinput.enable = true;
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
