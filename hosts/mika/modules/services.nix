@@ -7,6 +7,10 @@
 
   services.fwupd.enable = true;
 
+  services.tor.enable = true;
+  services.tor.client.enable = true;
+
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -39,4 +43,10 @@
   ];
 
   services.desktopManager.plasma6.enable = false;
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", MODE="0660", GROUP="uinput"
+
+    SUBSYSTEM=="input", KERNEL=="event*", MODE="0640", GROUP="input"
+  '';
 }

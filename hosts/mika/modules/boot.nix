@@ -13,4 +13,6 @@
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot";
   };
+
+  boot.kernelModules = [ "uinput" ];
 }

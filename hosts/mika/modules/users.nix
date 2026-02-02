@@ -10,6 +10,8 @@
       "wireshark"
       "libvirtd"
       "kvm"
+      "input"
+      "uinput"
     ];
   };
 

@@ -5,6 +5,9 @@
   programs.direnv.nix-direnv.enable = true;
   
   home.packages = with pkgs; [
+    hugo
+    tor-browser
+    onionshare-gui
     mpvpaper
     variety
     bluez
