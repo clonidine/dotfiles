@@ -5,10 +5,11 @@ let
 in
 {
   home.packages = [
-    (pkgs.discord.override {
-      withVencord = false;
-      withOpenASAR = true;
-    })
+    pkgs.vesktop
+#    (pkgs.discord.override {
+#      withVencord = true;
+#      withOpenASAR = false;
+    
   ];
 
   xdg.configFile = {
