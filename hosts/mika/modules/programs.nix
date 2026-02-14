@@ -7,6 +7,8 @@
     enable = true;
     package = pkgs.wireshark;
   };
+  
+  programs.dconf.enable = true;
 
   programs.ssh.askPassword = pkgs.lib.mkForce "${pkgs.kdePackages.ksshaskpass.out}/bin/ksshaskpass";
 

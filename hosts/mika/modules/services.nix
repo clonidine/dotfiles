@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   services.openssh.enable = true;
@@ -12,11 +12,69 @@
 
   services.tailscale.enable = true;
 
-  services.zerotierone = { enable = true; port = 9993; joinNetworks = [ "3b19b3a71656275d" ]; };
-  
+  services.zerotierone = {
+    enable = false;
+    port = 9993;
+    joinNetworks = [ "3b19b3a71656275d" ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+      workstation = true;
+    };
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /etc/ssl/local 0750 root nginx -"
+    "z /etc/ssl/local/cloud.local-key.pem 0640 root nginx -"
+  ];
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."nixos.local" = {
+      forceSSL = true;
+      sslCertificate = "/etc/ssl/local/cloud.local.pem";
+      sslCertificateKey = "/etc/ssl/local/cloud.local-key.pem";
+
+      extraConfig = ''
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+      '';
+    };
+  };
+
+  services.nextcloud = {
+    enable = true;
+    package = pkgs.nextcloud32;
+    hostName = "nixos.local";
+    https = false;
+
+    settings = {
+      overwriteprotocol = "https";
+      overwritehost = "nixos.local";
+    };
+
+    config = {
+      adminuser = "admin";
+      adminpassFile = "/etc/nextcloud-admin-pass";
+      dbtype = "pgsql";
+    };
+    database.createLocally = true;
+  };
+
+  services.postgresql.enable = true;
+
   systemd.services.zerotier-enable-multicast = {
     description = "Enable multicast on ZeroTier interfaces (zt*) for LAN discovery/broadcast";
-    after = [ "zerotierone.service" "network-online.target" ];
+    after = [
+      "zerotierone.service"
+      "network-online.target"
+    ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
 
@@ -40,7 +98,6 @@
     '';
   };
 
-  
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -51,8 +108,11 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  #  services.xserver.xkb.layout = "us";
+  #  services.xserver.xkb.variant = "intl";
+
   # Enable the ly as the Display Manager
-#  services.displayManager.ly.enable = true;
+  #  services.displayManager.ly.enable = true;
 
   # Enable the Mullvad VPN
   services.mullvad-vpn = {
