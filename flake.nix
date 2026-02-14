@@ -2,10 +2,15 @@
   description = "Mika's flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,6 +23,11 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lunar-client = {
+      url = "github:clonidine/lunar-client-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -25,13 +35,12 @@
       self,
       nixpkgs,
       home-manager,
+      agenix,
       spicetify-nix,
+      lunar-client,
       ...
     }@inputs:
     let
-      # ------------------------------
-      #  Supported systems
-      # ------------------------------
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -59,6 +68,7 @@
           inherit system;
           modules = [
             ./hosts/${host}/configuration.nix
+            agenix.nixosModules.default
           ];
           specialArgs = {
             inherit spicetify-nix inputs;
@@ -71,29 +81,21 @@
           pkgs = mkPkgs system;
           modules = [
             ./hosts/${host}/home.nix
+            agenix.homeManagerModules.default
           ];
           extraSpecialArgs = {
-            inherit spicetify-nix;
+            inherit spicetify-nix inputs;
           };
         };
 
     in
     {
-      # ------------------------------
-      #  NixOS HOSTS
-      # ------------------------------
       nixosConfigurations = {
         mika = mkNixos "mika" "x86_64-linux";
-        # desktop1 = mkNixos "desktop1" "x86_64-linux";
-        # rpi = mkNixos "rpi" "aarch64-linux";
       };
 
-      # ------------------------------
-      #  Home Manager configs
-      # ------------------------------
       homeConfigurations = {
         mika = mkHome "mika" "x86_64-linux";
-        # work-laptop = mkHome "work-laptop" "x86_64-linux";
       };
 
       packages = forAllSystems (
@@ -103,6 +105,7 @@
         in
         {
           default = pkgs.hello;
+          agenix = agenix.packages.${system}.default;
         }
       );
     };

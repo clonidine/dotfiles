@@ -31,5 +31,6 @@ in
     kdePackages.kwallet
     kdePackages.kwalletmanager
     kdePackages.kwallet-pam
+    nextcloud-client
   ];
 }

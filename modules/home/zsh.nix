@@ -18,6 +18,7 @@ let
     rbd = "sudo nixos-rebuild switch --flake .#mika";
     ff = "fastfetch";
     vim = "nvim";
+    grep = "${pkgs.gnugrep}/bin/grep --color=auto";
   };
 in
 {
