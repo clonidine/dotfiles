@@ -15,6 +15,14 @@
     ];
   };
 
+  age.secrets.mika-ssh = {
+    file = ../../../secrets/mika-ssh.age;
+
+    path = "/home/mika/.ssh/id_ed25519";
+    owner = "mika";
+    mode = "600";
+  };
+  
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;
 }

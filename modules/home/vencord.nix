@@ -6,11 +6,24 @@ in
 {
   home.packages = [
     pkgs.vesktop
-#    (pkgs.discord.override {
-#      withVencord = true;
-#      withOpenASAR = false;
-    
+    pkgs.discord
+    #    (pkgs.discord.override {
+    #      withVencord = true;
+    #      withOpenASAR = false;
+
   ];
+
+  xdg.desktopEntries."vesktop" = {
+    name = "Vesktop";
+    exec = "vesktop %U";
+    icon = "discord";
+    terminal = false;
+    categories = [
+      "Network"
+      "Chat"
+    ];
+    mimeType = [ "x-scheme-handler/discord" ];
+  };
 
   xdg.configFile = {
     "${configFolder}/settings/settings.json".source = ../../dotfiles/Vencord/settings/settings.json;

@@ -13,25 +13,23 @@
 
   networking.nftables.ruleset = ''
     table inet filter {
-      chain input {
+     chain input {
         type filter hook input priority 0; policy drop;
 
         iif "lo" accept
         ct state established,related accept
 
-        tcp dport 22 accept
+        tcp dport { 80, 443 } accept
 
-        iifname "zt*" accept
-
+        udp dport 5353 accept 
         ip protocol icmp accept
-        ip6 nexthdr icmpv6 accept
       }
 
       chain forward {
-        type filter hook forward priority 0; policy drop;
-        ct state established,related accept
-        iifname "zt*" accept
-        oifname "zt*" accept
+          type filter hook forward priority 0; policy drop;
+          ct state established,related accept
+          iifname "zt*" accept
+          oifname "zt*" accept
       }
 
       chain output {
@@ -39,7 +37,6 @@
       }
     }
   '';
-
 
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";

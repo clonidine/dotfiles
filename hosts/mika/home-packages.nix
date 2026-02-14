@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  
+
   home.packages = with pkgs; [
+    jetbrains.idea
     tor-browser
     onionshare-gui
     mpvpaper
@@ -27,5 +28,7 @@
     ripgrep
     freetube
     kdePackages.kwallet
+    gnugrep
+    inputs.lunar-client.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
