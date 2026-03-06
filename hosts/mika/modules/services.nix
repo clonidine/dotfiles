@@ -1,5 +1,13 @@
 { pkgs, config, ... }:
 
+let
+  nextcloudAdminPassFile =
+    if config.age.secrets ? nextcloud-admin-pass then
+      config.age.secrets.nextcloud-admin-pass.path
+    else
+      "/etc/nextcloud-admin-pass";
+in
+
 {
   services.openssh.enable = true;
 
@@ -10,12 +18,30 @@
   services.tor.enable = true;
   services.tor.client.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale.enable = false;
 
   services.zerotierone = {
-    enable = false;
+    enable = true;
     port = 9993;
     joinNetworks = [ "0000000000000000" ];
+  };
+
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_16;
+
+    settings = {
+      listen_addresses = "localhost";
+    };
+
+    ensureDatabases = [ "ranked" ];
+
+    ensureUsers = [
+      {
+        name = "ranked";
+        ensureDBOwnership = true;
+      }
+    ];
   };
 
   services.avahi = {
@@ -61,13 +87,11 @@
 
     config = {
       adminuser = "admin";
-      adminpassFile = "/etc/nextcloud-admin-pass";
+      adminpassFile = nextcloudAdminPassFile;
       dbtype = "pgsql";
     };
     database.createLocally = true;
   };
-
-  services.postgresql.enable = true;
 
   systemd.services.zerotier-enable-multicast = {
     description = "Enable multicast on ZeroTier interfaces (zt*) for LAN discovery/broadcast";
@@ -123,6 +147,7 @@
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.wayland = true;
   services.gnome.core-apps.enable = false;
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
@@ -132,6 +157,19 @@
     kdePackages.kwallet
   ];
 
+  systemd.services.libvirt-default-network = {
+    description = "Start libvirt default network";
+    after = [ "libvirtd.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.libvirt}/bin/virsh net-start default";
+      ExecStop = "${pkgs.libvirt}/bin/virsh net-destroy default";
+      User = "root";
+    };
+  };
+
   services.desktopManager.plasma6.enable = false;
 
   services.udev.extraRules = ''
@@ -139,5 +177,18 @@
 
     SUBSYSTEM=="input", KERNEL=="event*", MODE="0640", GROUP="input"
   '';
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    loadModels = [
+      # "llama3.1:8b"
+      "qwen2.5-coder:7b"
+      "deepseek-r1:7b"
+    ];
+
+    # syncModels = true;
+    # openFirewall = true;
+  };
 
 }
