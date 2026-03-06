@@ -35,8 +35,8 @@ in
         "kitty.desktop"
         "zen.desktop"
         "codium.desktop"
-        "org.gnome.Nautilus.desktop"
         "vesktop.desktop"
+        "org.gnome.Nautilus.desktop"
         "spotify.desktop"
       ];
       enabled-extensions = [
