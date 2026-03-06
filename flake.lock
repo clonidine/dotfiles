@@ -45,6 +45,26 @@
         "type": "github"
       }
     },
+    "darwin_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772379624,
+        "narHash": "sha256-NG9LLTWlz4YiaTAiRGChbrzbVxBfX+Auq4Ab/SWmk4A=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "52d061516108769656a8bd9c6e811c677ec5b462",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -94,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770967625,
-        "narHash": "sha256-/9F8XB6/LjhfKKfjWan/hl4frr9ZBWwnj22WD2wlZ2o=",
+        "lastModified": 1771814043,
+        "narHash": "sha256-PQ/kfMKnc3s0tzPbZ9DbcOej0EDbGmxQ1Yip64eqOuU=",
         "owner": "clonidine",
         "repo": "lunar-client-flake",
-        "rev": "0f3396d1d35b4d40f5b898faeef459a4adf1775a",
+        "rev": "ba19a9d5a3e4904964ab561a46f9731c255454f0",
         "type": "github"
       },
       "original": {
@@ -126,6 +146,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "darwin": "darwin_2",
         "home-manager": "home-manager_2",
         "lunar-client": "lunar-client",
         "nixpkgs": "nixpkgs",

@@ -1,0 +1,45 @@
+{ pkgs, ... }:
+
+{
+  home.username = "mika";
+  home.homeDirectory = "/Users/mika";
+  home.stateVersion = "25.05";
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.home-manager.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      g = "git";
+      ga = "git add";
+      gs = "git status";
+      gc = "git commit";
+      gp = "git push";
+      ls = "eza";
+      cat = "bat";
+      vim = "nvim";
+      hbmac = "home-manager switch --flake .#mika@macbook";
+    };
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "clonidine";
+    userEmail = "86500701+clonidine@users.noreply.github.com";
+  };
+
+  home.packages = with pkgs; [
+    neovim
+    eza
+    bat
+    ripgrep
+    fd
+    jq
+    curl
+    wget
+  ];
+}
