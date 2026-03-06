@@ -4,7 +4,7 @@
   imports = [
     ../../modules/home/mpv.nix
     ../../modules/home/alacritty.nix
-    ../../modules/home/git.nix
+    ../../modules/home/git/git.nix
     ../../modules/home/vencord.nix
     ../../modules/home/bat.nix
     ../../modules/home/spicetify.nix
