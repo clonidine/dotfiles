@@ -6,9 +6,6 @@
 }:
 
 {
-
-  nixpkgs.config.allowBroken = true;
-
   home.username = "mika";
   home.homeDirectory = "/home/mika";
 
