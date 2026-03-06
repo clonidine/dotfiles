@@ -15,6 +15,7 @@
     ./modules/programs.nix
     ./modules/security.nix
     ./modules/hardware.nix
+    ./modules/memory.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
