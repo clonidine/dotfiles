@@ -16,8 +16,17 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
+  environment.sessionVariables = {
+    XDG_DATA_DIRS = [ "${pkgs.adwaita-icon-theme}/share" ];
+    JAVA_HOME = "${pkgs.jdk21}";
+  };
+
   environment.systemPackages = with pkgs; [
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default 
+    ollama
+    swtpm
+    jdk21
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     fastfetch
     vim
     wget
@@ -25,8 +34,8 @@ in
     nixfmt
     qemu
     spice-gtk
-    freerdp   # xfreerdp + wlfreerdp
-    remmina   # optional GUI client
+    freerdp # xfreerdp + wlfreerdp
+    remmina # optional GUI client
     signalKwallet
     kdePackages.kwallet
     kdePackages.kwalletmanager
