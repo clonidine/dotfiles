@@ -60,6 +60,15 @@ vim.api.nvim_set_keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', { noremap = t
 vim.api.nvim_set_keymap('n', '<C-e>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-q>', ':NvimTreeClose<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    -- highlight guides
+    vim.opt_local.colorcolumn = "51,73"
+    vim.opt_local.textwidth = 72
+  end,
+})
+
 -- Telescope
 vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope find_files<CR>', { noremap = true, silent = true })
 
