@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MSG_FILE="$1"
+COMMIT_SOURCE="${2:-}"
+MODEL="${OLLAMA_MODEL:-qwen2.5-coder:7b}"
+
+if [[ -n "${COMMIT_SOURCE}" ]]; then
+  exit 0
+fi
+
+# Only skip if there's already a real message (not just comments)
+if [[ -f "${MSG_FILE}" ]] && @grep@ -qE '^[[:space:]]*[^#[:space:]]' "${MSG_FILE}"; then
+  exit 0
+fi
+
+DIFF="$(@git@ diff --cached --patch --minimal)"
+if [[ -z "${DIFF//[[:space:]]/}" ]]; then
+  exit 0
+fi
+
+STAGED_FILES="$(@git@ diff --cached --name-only | @head@ -n 30 | @sed@ ':a;N;$!ba;s/\n/, /g')"
+
+PROMPT="$(cat <<'PROMPT'
+You generate git commit subjects.
+
+Return ONLY ONE single-line Conventional Commit in English:
+<type>(<optional scope>): <imperative summary>
+
+Hard rules:
+- EXACTLY ONE line. No body. No markdown. No quotes.
+- Max 72 characters.
+- Use only: feat, fix, refactor, perf, docs, test, chore, build, ci.
+- If breaking change, use "!" (e.g., feat!: ...).
+
+Nix-specific rules:
+- If changes are only to flake.lock (dependency pin updates), use:
+  chore(deps): update flake.lock
+- If changes are only to flake.nix (Nix config), prefer:
+  chore(nix): update flake config
+  (use build(nix): ... only if it changes build tooling/CI/build outputs)
+- Never use refactor for flake.lock-only changes.
+- Prefer scope "nix" for flake.nix, and "deps" for flake.lock.
+
+Staged files (hint):
+PROMPT
+)"
+
+RAW="$(
+  printf "%s\n%s\n\n%s\n" "${PROMPT}" "${STAGED_FILES}" "${DIFF}" \
+  | @ollama@ run "${MODEL}"
+)"
+
+MSG="$(
+  printf "%s" "${RAW}" \
+  | @head@ -n 1 \
+  | @sed@ -E 's/^[[:space:]]+//; s/[[:space:]]+$//; s/[[:space:]]+/ /g; s/^["'\'']+//; s/["'\'']+$//' \
+  | @cut@ -c1-72
+)"
+
+# Hard override: flake.lock only
+if [[ -z "$(@git@ diff --cached --name-only | @grep@ -v '^flake\.lock$' || true)" ]]; then
+  MSG="chore(deps): update flake.lock"
+fi
+
+# Hard override: flake.nix only
+if [[ -z "$(@git@ diff --cached --name-only | @grep@ -v '^flake\.nix$' || true)" ]]; then
+  MSG="chore(nix): update flake config"
+fi
+
+# Drop obvious garbage / explanations
+if [[ -z "${MSG}" ]] || @grep@ -qiE 'provided code snippet|this setup|allows developers|environment|configuration' <<<"${MSG}"; then
+  MSG=""
+fi
+
+# Must match Conventional Commits. If not, fall back.
+CC_RE='^(feat|fix|refactor|perf|docs|test|chore|build|ci)(\([a-zA-Z0-9._/-]+\))?(!)?: .+'
+if [[ -z "${MSG}" ]] || ! @grep@ -qE "${CC_RE}" <<<"${MSG}"; then
+  FILES="$(@git@ diff --cached --name-only | @head@ -n 5 | @sed@ ':a;N;$!ba;s/\n/ /g')"
+  FILES="${FILES% }"
+  if [[ -n "${FILES}" ]]; then
+    MSG="chore: update ${FILES}"
+  else
+    MSG="chore: update staged changes"
+  fi
+  MSG="$(printf "%s" "${MSG}" | @cut@ -c1-72)"
+fi
+
+printf "%s\n" "${MSG}" > "${MSG_FILE}"
