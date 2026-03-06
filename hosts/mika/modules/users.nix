@@ -1,14 +1,8 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
-
-let
-  passwordSecretFile = ../../../secrets/mika-password-hash.age;
-  hasPasswordSecret = builtins.pathExists passwordSecretFile;
-in
 
 {
   users.mutableUsers = false;
@@ -24,12 +18,7 @@ in
       "input"
       "uinput"
     ];
-  }
-  // lib.optionalAttrs hasPasswordSecret {
     hashedPasswordFile = config.age.secrets.mika-password-hash.path;
-  }
-  // lib.optionalAttrs (!hasPasswordSecret) {
-    hashedPassword = "REDACTED_PASSWORD_HASH";
   };
 
   age.secrets = {
@@ -40,10 +29,9 @@ in
       owner = "mika";
       mode = "600";
     };
-  }
-  // lib.optionalAttrs hasPasswordSecret {
+
     mika-password-hash = {
-      file = passwordSecretFile;
+      file = ../../../secrets/mika-password-hash.age;
       owner = "root";
       group = "root";
       mode = "0400";

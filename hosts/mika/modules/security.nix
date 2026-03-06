@@ -1,16 +1,18 @@
 { lib, ... }:
 
-let
-  nextcloudSecretFile = ../../../secrets/nextcloud-admin-pass.age;
-  hasNextcloudSecret = builtins.pathExists nextcloudSecretFile;
-in
-
 {
-  age.secrets = lib.mkIf hasNextcloudSecret {
+  age.secrets = {
     nextcloud-admin-pass = {
-      file = nextcloudSecretFile;
+      file = ../../../secrets/nextcloud-admin-pass.age;
       owner = "nextcloud";
       group = "nextcloud";
+      mode = "0400";
+    };
+
+    nextcloud-mika-pass = {
+      file = ../../../secrets/nextcloud-mika-pass.age;
+      owner = "root";
+      group = "root";
       mode = "0400";
     };
   };

@@ -1,11 +1,9 @@
 { pkgs, config, ... }:
 
 let
-  nextcloudAdminPassFile =
-    if config.age.secrets ? nextcloud-admin-pass then
-      config.age.secrets.nextcloud-admin-pass.path
-    else
-      "/etc/nextcloud-admin-pass";
+  bootstrapAdminUser = "bootstrap-admin";
+  operatorUser = "mika";
+  occCmd = "/run/current-system/sw/bin/nextcloud-occ";
 in
 
 {
@@ -86,11 +84,54 @@ in
     };
 
     config = {
-      adminuser = "admin";
-      adminpassFile = nextcloudAdminPassFile;
+      adminuser = bootstrapAdminUser;
+      adminpassFile = config.age.secrets.nextcloud-admin-pass.path;
       dbtype = "pgsql";
     };
     database.createLocally = true;
+  };
+
+  systemd.services.nextcloud-bootstrap-hardening = {
+    description = "Ensure operational Nextcloud admin and disable bootstrap admins";
+    after = [ "nextcloud-setup.service" ];
+    requires = [ "nextcloud-setup.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      set -euo pipefail
+
+      oc_pass="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.nextcloud-mika-pass.path})"
+
+      if ! ${pkgs.sudo}/bin/sudo -u nextcloud ${occCmd} user:info ${operatorUser} >/dev/null 2>&1; then
+        ${pkgs.sudo}/bin/sudo -u nextcloud ${pkgs.coreutils}/bin/env \
+          OC_PASS="$oc_pass" \
+          NC_PASS="$oc_pass" \
+          ${occCmd} user:add \
+          --password-from-env \
+          --display-name "Mika" \
+          ${operatorUser}
+      fi
+
+      ${pkgs.sudo}/bin/sudo -u nextcloud ${pkgs.coreutils}/bin/env \
+        OC_PASS="$oc_pass" \
+        NC_PASS="$oc_pass" \
+        ${occCmd} user:resetpassword \
+        --password-from-env \
+        ${operatorUser}
+
+      ${pkgs.sudo}/bin/sudo -u nextcloud ${occCmd} group:adduser admin ${operatorUser} >/dev/null 2>&1 || true
+
+      for user in admin ${bootstrapAdminUser}; do
+        if ${pkgs.sudo}/bin/sudo -u nextcloud ${occCmd} user:info "$user" >/dev/null 2>&1; then
+          ${pkgs.sudo}/bin/sudo -u nextcloud ${occCmd} user:disable "$user" || true
+        fi
+      done
+
+      unset oc_pass
+    '';
   };
 
   systemd.services.zerotier-enable-multicast = {
