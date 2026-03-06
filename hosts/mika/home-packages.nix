@@ -5,6 +5,9 @@
   programs.direnv.nix-direnv.enable = true;
 
   home.packages = with pkgs; [
+    monocraft
+    maven
+    gnome-text-editor
     jetbrains.idea
     tor-browser
     onionshare-gui
