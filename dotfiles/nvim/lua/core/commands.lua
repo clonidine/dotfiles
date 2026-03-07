@@ -9,7 +9,12 @@ end
 local function run_in_terminal(command, opts)
   opts = opts or {}
 
-  vim.cmd("botright " .. (opts.height or 14) .. "new")
+  if opts.layout == "tab" then
+    vim.cmd("tabnew")
+  else
+    vim.cmd("botright " .. (opts.height or 14) .. "new")
+  end
+
   vim.bo.buftype = "nofile"
   vim.bo.bufhidden = "wipe"
   vim.bo.swapfile = false
@@ -60,20 +65,30 @@ function M.setup()
   end, {})
 
   vim.api.nvim_create_user_command("CargoRun", function()
-    run_in_terminal("cargo run", { cwd = project_root({ "Cargo.toml", ".git" }) })
+    run_in_terminal("cargo run", {
+      cwd = project_root({ "Cargo.toml", ".git" }),
+      height = 14,
+    })
   end, {})
 
   vim.api.nvim_create_user_command("CargoTest", function()
-    run_in_terminal("cargo test", { cwd = project_root({ "Cargo.toml", ".git" }) })
+    run_in_terminal("cargo test", {
+      cwd = project_root({ "Cargo.toml", ".git" }),
+      height = 14,
+    })
   end, {})
 
   vim.api.nvim_create_user_command("CargoCheck", function()
-    run_in_terminal("cargo check", { cwd = project_root({ "Cargo.toml", ".git" }) })
+    run_in_terminal("cargo check", {
+      cwd = project_root({ "Cargo.toml", ".git" }),
+      height = 14,
+    })
   end, {})
 
   vim.api.nvim_create_user_command("CargoClippy", function()
     run_in_terminal("cargo clippy --all-targets --all-features", {
       cwd = project_root({ "Cargo.toml", ".git" }),
+      height = 14,
     })
   end, {})
 
@@ -82,7 +97,10 @@ function M.setup()
       return
     end
 
-    run_in_terminal("codex", { cwd = project_root({ ".git" }) })
+    run_in_terminal("codex", {
+      cwd = project_root({ ".git" }),
+      layout = "tab",
+    })
   end, {})
 
   vim.api.nvim_create_user_command("CodexHere", function()
@@ -90,7 +108,10 @@ function M.setup()
       return
     end
 
-    run_in_terminal("codex", { cwd = vim.fn.expand("%:p:h") })
+    run_in_terminal("codex", {
+      cwd = vim.fn.expand("%:p:h"),
+      layout = "tab",
+    })
   end, {})
 end
 
