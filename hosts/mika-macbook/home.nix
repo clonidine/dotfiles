@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ../../modules/home/codex.nix
+    ../../modules/home/nvim.nix
+  ];
+
   home.username = "mika";
   home.homeDirectory = "/Users/mika";
   home.stateVersion = "25.05";
@@ -28,12 +33,13 @@
 
   programs.git = {
     enable = true;
-    userName = "clonidine";
-    userEmail = "86500701+clonidine@users.noreply.github.com";
+    settings.user = {
+      name = "clonidine";
+      email = "86500701+clonidine@users.noreply.github.com";
+    };
   };
 
   home.packages = with pkgs; [
-    neovim
     eza
     bat
     ripgrep
