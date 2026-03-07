@@ -21,6 +21,7 @@
     p7zip
     mullvad-browser
     telegram-desktop
+    video2x
     htop
     alsa-utils
     nerd-fonts.fira-code
