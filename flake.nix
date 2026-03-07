@@ -90,7 +90,7 @@
             agenix.homeManagerModules.default
           ];
           extraSpecialArgs = {
-            inherit spicetify-nix inputs;
+            inherit self spicetify-nix inputs;
           };
         };
 
@@ -126,10 +126,26 @@
         system:
         let
           pkgs = mkPkgs system;
+          dotfilesNeovim = pkgs.callPackage ./pkgs/neovim { };
         in
         {
-          default = pkgs.hello;
+          default = dotfilesNeovim;
           agenix = agenix.packages.${system}.default;
+          dotfiles-neovim = dotfilesNeovim;
+        }
+      );
+
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = mkPkgs system;
+        in
+        {
+          default = pkgs.mkShell {
+            packages = [
+              self.packages.${system}.dotfiles-neovim
+            ];
+          };
         }
       );
     };

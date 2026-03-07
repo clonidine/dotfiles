@@ -1,10 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
+
+let
+  inherit (import ../../pkgs/neovim/shared.nix { inherit pkgs; })
+    extraPackages
+    ;
+in
 
 {
-  home.packages = with pkgs; [
-    neovim
-  ];
+  home.packages = [
+    self.packages.${pkgs.stdenv.hostPlatform.system}.dotfiles-neovim
+  ] ++ extraPackages;
 
-  xdg.configFile."nvim/init.lua".source = ../../dotfiles/nvim/init.lua;
-  xdg.configFile."nvim/lua/plugins.lua".source = ../../dotfiles/nvim/lua/plugins.lua;
+  xdg.configFile."nvim" = {
+    source = ../../dotfiles/nvim;
+    force = true;
+  };
 }
