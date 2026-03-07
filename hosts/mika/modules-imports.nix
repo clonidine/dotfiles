@@ -12,6 +12,7 @@
     ../../modules/home/vscode.nix
     ../../modules/home/firefox.nix
     ../../modules/home/direnv.nix
+    ../../modules/home/codex.nix
     ../../modules/home/nvim.nix
     ../../modules/home/wireplumber.nix
 
