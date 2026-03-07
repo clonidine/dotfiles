@@ -4,5 +4,5 @@ import = [
 ]
 
 [font]
-normal = { family = "FiraCode Nerd Font", style = "Bold" }
+normal = { family = "MonoCraft", style = "Regular" }
 size = 13.0

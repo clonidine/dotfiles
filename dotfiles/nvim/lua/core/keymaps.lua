@@ -22,6 +22,7 @@ map("n", "<leader>rl", "<cmd>CargoClippy<cr>", { desc = "Cargo clippy" })
 
 map("n", "<leader>ai", "<cmd>Codex<cr>", { desc = "Open Codex in project root" })
 map("n", "<leader>ac", "<cmd>CodexHere<cr>", { desc = "Open Codex in file directory" })
+map("n", "<leader>aq", "<cmd>tabclose<cr>", { desc = "Close current tab" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)

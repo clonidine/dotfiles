@@ -25,5 +25,6 @@ vim.opt.tabstop = 2
 vim.opt.smartindent = true
 vim.opt.undofile = true
 vim.opt.clipboard = "unnamedplus"
+vim.opt.guifont = "MonoCraft:h13"
 
 vim.opt.shortmess:append("c")
