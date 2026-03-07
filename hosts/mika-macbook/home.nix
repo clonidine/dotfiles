@@ -4,6 +4,7 @@
   imports = [
     ../../modules/home/codex.nix
     ../../modules/home/nvim.nix
+    ../../modules/home/kitty.nix
   ];
 
   home.username = "mika";
@@ -40,6 +41,7 @@
   };
 
   home.packages = with pkgs; [
+    monocraft
     eza
     bat
     ripgrep
