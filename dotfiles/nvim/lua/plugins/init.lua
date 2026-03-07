@@ -1,0 +1,7 @@
+require("config.theme").setup()
+require("config.treesitter").setup()
+require("config.cmp").setup()
+require("config.lsp").setup()
+require("config.telescope").setup()
+require("config.statusline").setup()
+require("config.git").setup()
