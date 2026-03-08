@@ -25,7 +25,7 @@
   programs.home-manager.enable = true;
 
   programs.zsh.shellAliases = {
-    hrbd = lib.mkForce "home-manager switch --flake ~/dotfiles#mika@wsl";
-    rbd = lib.mkForce "sudo nixos-rebuild switch --flake ~/dotfiles#mika-wsl";
+    hrbd = lib.mkForce "home-manager switch --flake path:$HOME/dotfiles#mika@wsl";
+    rbd = lib.mkForce "sudo nixos-rebuild switch --flake path:$HOME/dotfiles#mika-wsl";
   };
 }

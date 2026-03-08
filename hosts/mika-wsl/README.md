@@ -6,10 +6,10 @@ Useful commands from the repo root:
 
 ```sh
 nix flake show
-nix build .#mika-wsl-tarball-builder
-nix run .#mika-wsl-tarball-builder
-sudo nixos-rebuild switch --flake .#mika-wsl
-home-manager switch --flake .#mika@wsl
+nix build path:$PWD#mika-wsl-tarball-builder
+nix run path:$PWD#mika-wsl-tarball-builder
+sudo nixos-rebuild switch --flake path:$PWD#mika-wsl
+home-manager switch --flake path:$PWD#mika@wsl
 ```
 
 The WSL host intentionally skips the desktop, hardware, virtualization, and

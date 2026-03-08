@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+
+let
+  private = import ../../private/config.nix;
+  hasGitIdentity = private.git.userName != null && private.git.userEmail != null;
+in
 
 {
   imports = [
@@ -28,15 +33,17 @@
       ls = "eza";
       cat = "bat";
       vim = "nvim";
-      hbmac = "home-manager switch --flake .#mika@macbook";
+      hbmac = "home-manager switch --flake path:$HOME/dotfiles#mika@macbook";
     };
   };
 
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "clonidine";
-      email = "user@example.invalid";
+    settings = lib.optionalAttrs hasGitIdentity {
+      user = {
+        name = private.git.userName;
+        email = private.git.userEmail;
+      };
     };
   };
 

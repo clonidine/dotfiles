@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 
 let
+  private = import ../../../private/config.nix;
   bootstrapAdminUser = "bootstrap-admin";
   operatorUser = "mika";
   occCmd = "/run/current-system/sw/bin/nextcloud-occ";
@@ -21,7 +22,7 @@ in
   services.zerotierone = {
     enable = true;
     port = 9993;
-    joinNetworks = [ "0000000000000000" ];
+    joinNetworks = private.networking.zerotierJoinNetworks;
   };
 
   services.postgresql = {

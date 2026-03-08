@@ -14,8 +14,8 @@ let
     # Others
     ls = "eza";
     cat = "bat";
-    hrbd = "home-manager switch --flake .#mika";
-    rbd = "sudo nixos-rebuild switch --flake .#mika";
+    hrbd = "home-manager switch --flake path:$HOME/dotfiles#mika";
+    rbd = "sudo nixos-rebuild switch --flake path:$HOME/dotfiles#mika";
     ff = "fastfetch";
     vim = "nvim";
     grep = "${pkgs.gnugrep}/bin/grep --color=auto";

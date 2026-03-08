@@ -55,6 +55,8 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
 
       forAllSystems =
@@ -82,7 +84,7 @@
             agenix.nixosModules.default
           ];
           specialArgs = {
-            inherit spicetify-nix inputs;
+            inherit self spicetify-nix inputs;
           };
         };
 
@@ -108,7 +110,7 @@
             home-manager.darwinModules.home-manager
           ];
           specialArgs = {
-            inherit spicetify-nix inputs;
+            inherit self spicetify-nix inputs;
           };
         };
 

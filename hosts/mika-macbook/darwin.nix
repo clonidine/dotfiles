@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, self, inputs, ... }:
 
 {
   nix.settings.experimental-features = [
@@ -22,7 +22,7 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
-    inherit inputs;
+    inherit self inputs;
   };
   home-manager.users.mika = import ./home.nix;
 }

@@ -1,8 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
-  publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMo1dnyX/XPyCf4+YXy7a5zvCOcVTocrv1EB6q3Q5PSD";
-  email = "user@example.invalid";
+  private = import ../../../private/config.nix;
+  publicKey = private.git.publicSigningKey;
+  signingEmail = private.git.signingEmail;
+  hasGitIdentity = private.git.userName != null && private.git.userEmail != null;
+  hasSigningIdentity = signingEmail != null && publicKey != null;
   hook = pkgs.replaceVars ./hooks/prepare-commit-msg {
     git = "${pkgs.git}/bin/git";
     ollama = "${pkgs.ollama}/bin/ollama";
@@ -18,32 +21,41 @@ let
   '';
 in
 {
-  home.file.".ssh/allowed_signers".text = ''
-    ${email} ${publicKey}
-  '';
+  home.file = lib.mkMerge [
+    (lib.optionalAttrs hasSigningIdentity {
+      ".ssh/allowed_signers".text = ''
+        ${signingEmail} ${publicKey}
+      '';
 
-  home.file.".ssh/id_ed25519.pub".text = publicKey;
+      ".ssh/id_ed25519.pub".text = publicKey;
+    })
+  ];
 
   programs.git = {
     enable = true;
 
-    settings = {
-      user = {
-        name = "clonidine";
-        email = "user@example.invalid";
-        signingkey = "~/.ssh/id_ed25519.pub";
-      };
+    settings = lib.mkMerge [
+      {
+        core.hooksPath = toString hooksDir;
+      }
+      (lib.optionalAttrs hasGitIdentity {
+        user = {
+          name = private.git.userName;
+          email = private.git.userEmail;
+        };
+      })
+      (lib.optionalAttrs hasSigningIdentity {
+        user.signingkey = "~/.ssh/id_ed25519.pub";
 
-      core.hooksPath = toString hooksDir;
+        gpg.format = "ssh";
 
-      gpg.format = "ssh";
+        "gpg \"ssh\"".program = "${pkgs.openssh}/bin/ssh-keygen";
 
-      "gpg \"ssh\"".program = "${pkgs.openssh}/bin/ssh-keygen";
+        "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
 
-      "gpg \"ssh\"".allowedSignersFile = "~/.ssh/allowed_signers";
-
-      commit.gpgsign = true;
-      tag.gpgsign = true;
-    };
+        commit.gpgsign = true;
+        tag.gpgsign = true;
+      })
+    ];
   };
 }

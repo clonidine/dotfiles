@@ -1,0 +1,21 @@
+{
+  git = {
+    userName = "your-git-name";
+    userEmail = "your-public-git-email@example.invalid";
+    signingEmail = "your-signing-email@example.invalid";
+    publicSigningKey = "ssh-ed25519 AAAA... your-signing-identity";
+  };
+
+  agenix = {
+    userRecipient = "ssh-ed25519 AAAA... your-user-recipient";
+    hostRecipients = {
+      desktop = "ssh-ed25519 AAAA... your-host-recipient";
+    };
+  };
+
+  networking = {
+    zerotierJoinNetworks = [
+      # "your-network-id"
+    ];
+  };
+}
