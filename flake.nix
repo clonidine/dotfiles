@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -111,6 +116,7 @@
     {
       nixosConfigurations = {
         mika = mkNixos "mika" "x86_64-linux";
+        mika-wsl = mkNixos "mika-wsl" "x86_64-linux";
       };
 
       darwinConfigurations = {
@@ -119,6 +125,7 @@
 
       homeConfigurations = {
         mika = mkHome "mika" "x86_64-linux";
+        "mika@wsl" = mkHome "mika-wsl" "x86_64-linux";
         "mika@macbook" = mkHome "mika-macbook" "aarch64-darwin";
       };
 
@@ -132,6 +139,10 @@
           default = dotfilesNeovim;
           agenix = agenix.packages.${system}.default;
           dotfiles-neovim = dotfilesNeovim;
+        }
+        // nixpkgs.lib.optionalAttrs (system == "x86_64-linux") {
+          mika-wsl-tarball-builder =
+            self.nixosConfigurations.mika-wsl.config.system.build.tarballBuilder;
         }
       );
 
