@@ -20,5 +20,6 @@
     nerd-fonts.jetbrains-mono
     p7zip
     ripgrep
+    vscodium
   ];
 }

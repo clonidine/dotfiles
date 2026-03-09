@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
@@ -12,12 +13,16 @@
     defaultUser = "mika";
     startMenuLaunchers = true;
 
+    useWindowsDriver = true;
+
     # Keep PATH deterministic and rely on explicit Windows interop when needed.
     interop.includePath = false;
     wslConf.interop.appendWindowsPath = false;
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  environment.variables.NIX_LD_LIBRARY_PATH = lib.mkForce "/run/current-system/sw/share/nix-ld/lib:/usr/lib/wsl/lib";
 
   networking.hostName = "nixos-wsl";
   time.timeZone = "America/Sao_Paulo";
